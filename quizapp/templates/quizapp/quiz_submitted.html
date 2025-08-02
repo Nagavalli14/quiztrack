@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Submitted</title>
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 80px;
+        }
+        h2 {
+            color: #00796b;
+        }
+        p {
+            font-size: 20px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #00796b;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+        a:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <h2>Well done!</h2>
+    <p>You answered {{ count }} question{{ count|pluralize }}.</p>
+
+    {% if score %}
+        <p>Your score: {{ score }}</p>
+    {% else %}
+        <p><strong>Score not yet allotted. Evaluation pending.</strong></p>
+    {% endif %}
+
+    <a href="{% url 'student_dashboard' %}">Back to Home</a>
+</body>
+</html>

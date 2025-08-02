@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Take Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff;
+            padding: 20px;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <h2>Take Quiz</h2>
+  
+    <form method="post" action="{% url 'submit_quiz' %}">
+        {% csrf_token %}
+      <input type="hidden" name="test_id" value="{{ test.id }}">
+
+        {% for quiz in quizzes %}
+            <div class="question">
+                <p><strong>{{ forloop.counter }}. {{ quiz.question }}</strong></p>
+                
+                <label><input type="radio" name="question_{{ quiz.id }}" value="A"> {{ quiz.option_a }}</label><br>
+                <label><input type="radio" name="question_{{ quiz.id }}" value="B"> {{ quiz.option_b }}</label><br>
+                <label><input type="radio" name="question_{{ quiz.id }}" value="C">{{ quiz.option_c }}</label><br>
+                <label><input type="radio" name="question_{{ quiz.id }}" value="D">{{ quiz.option_d }}</label><br>
+            </div>
+        {% endfor %}
+        <div style="text-align: center;">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

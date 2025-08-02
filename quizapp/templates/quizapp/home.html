@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Platform</title>
+  <style>
+    body {
+      background-color: skyblue;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 100px;
+    }
+    h1 {
+      color: white;
+    }
+    p {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    a {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 25px;
+      background: white;
+      color: #0077cc;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    a:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Quiz Platform</h1>
+  <p>Please log in to continue</p>
+  <a href="{% url 'student_login' %}">Login as Student</a>
+  <a href="{% url 'teacher_login' %}">Login as Teacher</a>
+</body>
+</html>

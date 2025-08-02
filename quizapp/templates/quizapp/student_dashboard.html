@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            background-color: skyblue;
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            color: white;
+            font-size: 32px;
+        }
+        .quiz-list {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .quiz-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        .quiz-item:last-child {
+            border-bottom: none;
+        }
+        .quiz-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .quiz-date {
+            font-size: 14px;
+            color: gray;
+        }
+        .button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .logout-btn {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2><h2>Welcome, {{ username }}</h2>
+</h2>
+
+    <div class="quiz-list">
+        {% for test in tests %}
+        <div class="quiz-item">
+            <div>
+                <div class="quiz-title">{{ test.name }}</div>
+                <div class="quiz-date">Date: {{ test.date }}</div>
+            </div>
+            <a href="{% url 'quiz' test.id %}" class="button">Take Quiz</a>
+        </div>
+        {% empty %}
+        <p>No quizzes available right now.</p>
+        {% endfor %}
+    </div>
+
+    <div class="logout-btn">
+        <a href="{% url 'logout' %}?next=/" class="button">Logout</a>
+    </div>
+</body>
+</html>

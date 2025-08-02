@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evaluate Student Answers</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f0f8ff;
+            padding: 40px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        .success {
+            color: green;
+            background-color: #e0ffe0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid green;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #aed6f1;
+        }
+        tr.evaluated {
+            background-color: #d0f5d0;
+        }
+        input[type="number"] {
+            width: 60px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Evaluate Student Quiz Attempts</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Test Name</th>
+                <th>Test Date</th>
+                <th>Attempt Date & Time</th>
+                <th>Attempted / Total</th>
+                <th>Auto-evaluated Score</th>
+                <th>Final Score</th>
+            </tr>
+            {% for student in student_data %}
+<tr class="{% if student.evaluated %}evaluated{% endif %}">
+    <td>{{ student.user.username }}</td>
+    <td>{{ student.test.name }}</td>
+    <td>{{ student.test.date|date:"F j, Y" }}</td>
+    <td>{{ student.attempt_time|date:"n/j, g:i a" }}</td>
+    <td>{{ student.answered }}/{{ student.total }}</td>
+    <td>{{ student.auto_score }}</td>
+    <td>
+        <input type="number" name="score_{{ student.attempt_id }}" value="{{ student.final_score }}">
+    </td>
+</tr>
+
+{% endfor %}
+
+            
+        </table>
+
+        <button type="submit">Submit Scores</button>
+    </form>
+</body>
+</html>
